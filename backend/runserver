@@ -1,0 +1,15 @@
+#!/bin/bash
+# source /home/yaroslav_admin/taski/backend/venv/bin/activate
+
+
+# /home/yaroslav_admin/taski/backend/venv/bin/gunicorn --bind 0.0.0.0:8000 backend.wsgi
+
+python3 manage.py migrate
+
+python manage.py collectstatic
+
+cp -r static_backend /static
+rm -rf static_backend
+
+
+gunicorn --bind 0.0.0.0:8000 backend.wsgi
